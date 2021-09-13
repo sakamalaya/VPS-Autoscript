@@ -36,7 +36,7 @@ do
 			head -7 /etc/wireguard/wg0.conf > /tmp/wg0.conf
 			mv /tmp/wg0.conf /etc/wireguard/wg0.conf
 		fi
-		rm -f /sakamalya/wireguard/${user}.conf
+		rm -f /sakamalaya/wireguard/${user}.conf
 		sed -i "/\b$user\b/d" /sakamalaya/wireguard/wireguard-clients.txt
 	fi
 done < /sakamalaya/wireguard/wireguard-clients.txt
