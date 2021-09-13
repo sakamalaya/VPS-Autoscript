@@ -5,8 +5,8 @@ echo -e "====================[Script Info]===================="
 echo -e "\nServices:
 ---------
 1) SSH\t\t\t22
-2) Dropbear\t\t85
-3) Stunnel4\t\t465
+2) Dropbear\t\t143
+3) Stunnel4\t\t444
 4) Squid3\t\t8080
 5) OpenVPN\t\t1194
 6) Xray\t\t\t443
@@ -34,7 +34,7 @@ How to change:
 5) Dropbear Multi-login - \"55 23 * * * root script-2\" at /etc/crontab
 
 ==============================================
-Script written by Iriszz.
-Report bugs: https://t.me/iriszz
+Script written by SakaMalaya.
+Report bugs: mr.sakamalaya@gmail.com
 
-Thank you for using my script :)\n"
+Thank you for your support :)\n"
