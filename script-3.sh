@@ -30,7 +30,7 @@ while true; do
                         for (( c=1; c<=$total; c++ )); do
                                 pid_kill=$(echo $pid | cut -d " " -f $c)
                                 kill $pid_kill
-                                echo -e "$(date +'%d/%m/%Y %T')\t${user}\t${pid_kill}" >> /iriszz/script-3/multi-login.log
+                                echo -e "$(date +'%d/%m/%Y %T')\t${user}\t${pid_kill}" >> /sakamalaya/script-3/multi-login.log
                         done
                 fi
         done < /tmp/user-list.txt
@@ -64,9 +64,9 @@ while true; do
                                 for (( c=1; c<=$total; c++ )); do
                                         pid_kill=$(echo $pid | cut -d " " -f $c)
                                         kill $pid_kill
-                                        echo -e "$(date +'%d/%m/%Y %T')\t${user}\t${pid_kill}" >> /iriszz/script-3/multi-login.log
+                                        echo -e "$(date +'%d/%m/%Y %T')\t${user}\t${pid_kill}" >> /sakamalaya/script-3/multi-login.log
                                 done
-                                echo -e "$(date +'%d/%m/%Y %T')\t${user}" >> /iriszz/script-3/user-lock.log
+                                echo -e "$(date +'%d/%m/%Y %T')\t${user}" >> /sakamalaya/script-3/user-lock.log
                         fi
                 fi
         done < /tmp/user-list.txt
