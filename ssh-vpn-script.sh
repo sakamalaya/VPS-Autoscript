@@ -160,7 +160,7 @@ function ovpn-config() {
 		echo -e "OpenVPN Config - TCP"
 		echo -e "--------------------"
 		echo -e ""
-		cat /iriszz/openvpn/client-tcp.ovpn
+		cat /sakamalaya/openvpn/client-tcp.ovpn
 		echo -e ""
 		exit
 		;;
@@ -169,7 +169,7 @@ function ovpn-config() {
 		echo -e "OpenVPN Config - UDP"
 		echo -e "--------------------"
 		echo -e ""
-		cat /iriszz/openvpn/client-udp.ovpn
+		cat /sakamalaya/openvpn/client-udp.ovpn
 		echo -e ""
 		exit
 		;;
