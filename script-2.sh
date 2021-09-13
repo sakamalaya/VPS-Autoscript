@@ -16,9 +16,9 @@ do
 		mv -f /usr/local/etc/xray/config_tmp.json /usr/local/etc/xray/config.json
 		cat /usr/local/etc/xray/config.json | jq 'del(.inbounds[1].settings.clients[] | select(.id == "'${uuid}'"))' >/usr/local/etc/xray/config_tmp.json
 		mv -f /usr/local/etc/xray/config_tmp.json /usr/local/etc/xray/config.json
-		sed -i "/\b$user\b/d" /iriszz/xray/xray-clients.txt
+		sed -i "/\b$user\b/d" /sakamalaya/xray/xray-clients.txt
 	fi
-done < /iriszz/xray/xray-clients.txt
+done < /sakamalaya/xray/xray-clients.txt
 
 unset expired
 while read expired
@@ -36,7 +36,7 @@ do
 			head -7 /etc/wireguard/wg0.conf > /tmp/wg0.conf
 			mv /tmp/wg0.conf /etc/wireguard/wg0.conf
 		fi
-		rm -f /iriszz/wireguard/${user}.conf
-		sed -i "/\b$user\b/d" /iriszz/wireguard/wireguard-clients.txt
+		rm -f /sakamalya/wireguard/${user}.conf
+		sed -i "/\b$user\b/d" /sakamalaya/wireguard/wireguard-clients.txt
 	fi
-done < /iriszz/wireguard/wireguard-clients.txt
+done < /sakamalaya/wireguard/wireguard-clients.txt
