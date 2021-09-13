@@ -2,12 +2,12 @@
 
 function login-limit() {
 	clear
-	limit=$(cat /iriszz/script-3/limit)
+	limit=$(cat /sakamalaya/script-3/limit)
 	echo -e ""
 	echo -e "Current Dropbear multi-login limit: $limit"
 	echo -e ""
 	read -p "New Dropbear multi-login limit: " new_limit
-	echo $new_limit > /iriszz/script-3/limit
+	echo $new_limit > /sakamalaya/script-3/limit
 	service script-3 restart
 	clear
 	echo -e ""
@@ -17,7 +17,7 @@ function login-limit() {
 
 function block-conn() {
 	clear
-	status=$(cat /iriszz/block-status)
+	status=$(cat /sakamalaya/block-status)
 	if [ "$status" == on ]; then
 		echo -e "Do you want to allow all connections?"
 		echo -e "  [1] Yes"
@@ -27,8 +27,8 @@ function block-conn() {
 			read -rp "Select an option [1-2]: " option
 		done
 		if [ $option -eq 1 ]; then
-			ufw allow 85 > /dev/null 2>&1
-			ufw allow 465 > /dev/null 2>&1
+			ufw allow 143 > /dev/null 2>&1
+			ufw allow 444 > /dev/null 2>&1
 			ufw allow 8080 > /dev/null 2>&1
 			ufw allow 1194 > /dev/null 2>&1
 			ufw allow 80 > /dev/null 2>&1
@@ -57,8 +57,8 @@ function block-conn() {
 			read -rp "Select an option [1-2]: " option
 		done
 		if [ $option -eq 1 ]; then
-			ufw delete allow 85 > /dev/null 2>&1
-			ufw delete allow 465 > /dev/null 2>&1
+			ufw delete allow 143 > /dev/null 2>&1
+			ufw delete allow 444 > /dev/null 2>&1
 			ufw delete allow 8080 > /dev/null 2>&1
 			ufw delete allow 1194 > /dev/null 2>&1
 			ufw delete allow 80 > /dev/null 2>&1
@@ -67,7 +67,7 @@ function block-conn() {
 			ufw delete allow 7300 > /dev/null 2>&1
 			ufw delete allow 8000 > /dev/null 2>&1
 			ufw delete allow 3128 > /dev/null 2>&1
-			echo on > /iriszz/block-status
+			echo on > /sakamalaya/block-status
 		elif [ $option -eq 2 ]; then
 			clear
 			echo -e "Operation cancelled."
@@ -83,8 +83,8 @@ function block-conn() {
 	fi
 }
 
-limit=$(cat /iriszz/script-3/limit)
-status=$(cat /iriszz/block-status)
+limit=$(cat /sakamalaya/script-3/limit)
+status=$(cat /sakamalaya/block-status)
 
 clear
 echo -e "===========[ Script Menu ]==========="
