@@ -37,7 +37,7 @@ function add-user() {
 	client_pub_key=$(echo "${client_priv_key}" | wg pubkey)
 	client_pre_shared_key=$(wg genpsk)
 
-	echo -e "$user\t$exp" >> /iriszz/wireguard/wireguard-clients.txt
+	echo -e "$user\t$exp" >> /sakamalaya/wireguard/wireguard-clients.txt
 	echo -e "[Interface]
 PrivateKey = ${client_priv_key}
 Address = ${client_ipv4}/32
@@ -46,7 +46,7 @@ DNS = 8.8.8.8,8.8.4.4
 PublicKey = ${server_pub_key}
 PresharedKey = ${client_pre_shared_key}
 Endpoint = ${endpoint}
-AllowedIPs = 0.0.0.0/0" >> /iriszz/wireguard/${user}.conf
+AllowedIPs = 0.0.0.0/0" >> /sakamalaya/wireguard/${user}.conf
 	echo -e "\n### Client ${user}
 [Peer]
 PublicKey = ${client_pub_key}
@@ -78,8 +78,8 @@ function delete-user(){
 			head -7 /etc/wireguard/wg0.conf > /tmp/wg0.conf
 			mv /tmp/wg0.conf /etc/wireguard/wg0.conf
 		fi
-		rm -f /iriszz/wireguard/${user}.conf
-		sed -i "/\b$user\b/d" /iriszz/wireguard/wireguard-clients.txt
+		rm -f /sakamalaya/wireguard/${user}.conf
+		sed -i "/\b$user\b/d" /sakamalaya/wireguard/wireguard-clients.txt
 		service wg-quick@wg0 restart
 		echo -e "User '$user' deleted successfully."
 		echo -e ""
@@ -95,7 +95,7 @@ function extend-user() {
 	echo -e "Extend WireGuard User"
 	echo -e "---------------------"
 	read -p "Username : " user
-	if ! grep -qw "$user" /iriszz/wireguard/wireguard-clients.txt; then
+	if ! grep -qw "$user" /sakamalaya/wireguard/wireguard-clients.txt; then
 		echo -e ""
 		echo -e "User '$user' does not exist."
 		echo -e ""
@@ -103,14 +103,14 @@ function extend-user() {
 	fi
 	read -p "Duration (day) : " extend
 
-	exp_old=$(cat /iriszz/wireguard/wireguard-clients.txt | grep -w $user | awk '{print $2}')
+	exp_old=$(cat /sakamalaya/wireguard/wireguard-clients.txt | grep -w $user | awk '{print $2}')
 	diff=$((($(date -d "${exp_old}" +%s)-$(date +%s))/(86400)))
 	duration=$(expr $diff + $extend + 1)
 	exp_new=$(date -d +${duration}days +%Y-%m-%d)
 	exp=$(date -d "${exp_new}" +"%d %b %Y")
 
-	sed -i "/\b$user\b/d" /iriszz/wireguard/wireguard-clients.txt
-	echo -e "$user\t$exp_new" >> /iriszz/wireguard/wireguard-clients.txt
+	sed -i "/\b$user\b/d" /sakamalaya/wireguard/wireguard-clients.txt
+	echo -e "$user\t$exp_new" >> /sakamalaya/wireguard/wireguard-clients.txt
 
 	clear
 	echo -e ""
@@ -133,8 +133,8 @@ function user-list() {
 		exp=$(echo $expired | awk '{print $2}')
 		exp_date=$(date -d"${exp}" "+%d %b %Y")
 		printf "%-17s %2s\n" "$user" "$exp_date"
-	done < /iriszz/wireguard/wireguard-clients.txt
-	total=$(wc -l /iriszz/wireguard/wireguard-clients.txt | awk '{print $1}')
+	done < /sakamalaya/wireguard/wireguard-clients.txt
+	total=$(wc -l /sakamalaya/wireguard/wireguard-clients.txt | awk '{print $1}')
 	echo -e "-------------------------------"
 	echo -e "Total accounts: $total"
 	echo -e "==============================="
@@ -147,17 +147,17 @@ function show-config() {
 	echo -e "----------------"
 	read -p "User : " user
 	if grep -qw "^### Client ${user}\$" /etc/wireguard/wg0.conf; then
-		exp=$(cat /iriszz/wireguard/wireguard-clients.txt | grep -w "$user" | awk '{print $2}')
+		exp=$(cat /sakamalaya/wireguard/wireguard-clients.txt | grep -w "$user" | awk '{print $2}')
 		exp_date=$(date -d"${exp}" "+%d %b %Y")
 		echo -e "Expired : $exp_date"
 		echo -e ""
 		echo -e "QR Code"
 		echo -e "-------"
-		qrencode -t ansiutf8 -l L < /iriszz/wireguard/${user}.conf
+		qrencode -t ansiutf8 -l L < /sakamalaya/wireguard/${user}.conf
 		echo -e ""
 		echo -e "Config"
 		echo -e "------"
-		cat /iriszz/wireguard/${user}.conf
+		cat /sakamalaya/wireguard/${user}.conf
 		echo -e ""
 	else
 		echo -e ""
